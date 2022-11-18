@@ -3,6 +3,9 @@ import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
+import TextField from '@mui/material/TextField';
+import Button from '@mui/material/Button';
+import Chip from '@mui/material/Chip';
 import { useState } from 'react';
 import {
   LineChart,
@@ -136,6 +139,7 @@ export default function BasicTabs() {
           <Tab label="Mining Graph" {...a11yProps(4)} />
           <Tab label="Pump Activity"{...a11yProps(5)} />
           <Tab label="Clients"{...a11yProps(6)} />
+          <Tab label="Nivo"{...a11yProps(7)} />
         </Tabs>
       </Box>
       <TabPanel value={value} index={0}>
@@ -170,6 +174,9 @@ export default function BasicTabs() {
       </TabPanel>
       <TabPanel value={value} index={6}>
         <Clients />
+      </TabPanel>
+      <TabPanel value={value} index={7}>
+        <div></div>
       </TabPanel>
     </Box>
   );
@@ -217,13 +224,12 @@ function TextAndButton(state) {
       <p2> and click on the button labeled "submit" to add it to the list.</p2>
       <br />
       <Box sx={{ borderBottom: 1, borderColor: 'container' }}></Box><br />
-      <label>
-        Text Box </label>
+      
         <div>
-        <input onChange={event => setInputBox(event.target.value)}></input>
-        <button onClick={() => setList([...list, inputBox])}>Submit</button>
+        <TextField id="outlined-basic" label="Text Box" variant="outlined" size="small" onChange={event => setInputBox(event.target.value)}/>
+        <Button variant="contained" size="large" onClick={() => setList([...list, inputBox])}>Submit</Button>
         </div>
-      <p2>• {list.join(', • ')}</p2>
+      <Chip label={list.join(" | ")} />
     </div>
   )
 }
@@ -332,19 +338,22 @@ const clientlog = [
 
 function Clients() {
   return (
-    <>
-    <Box sx={{ borderBottom: 1, borderColor: 'container' }}></Box>
-    <h1><u>Client Data Mock:</u></h1>
-    <Box sx={{ borderBottom: 1, borderColor: 'container' }}></Box><br />
-    <BarChart width={600} height={600} data={clientlog}>
-      <Bar dataKey="income" fill="grey"/>
-      <CartesianGrid stroke="#ccc" />
-      <XAxis dataKey="name" />
-      <YAxis />
-    </BarChart>
-    <Box sx={{ borderBottom: 1, borderColor: 'container' }}></Box><br />
-    <label>X = Company <br />Y = Income Per Week</label><br /><br />
-    <Box sx={{ borderBottom: 1, borderColor: 'container' }}></Box>
-    </>
-  );
-}
+      <>
+      <Box sx={{ borderBottom: 1, borderColor: 'container' }}></Box>
+      <h1><u>Client Data Mock:</u></h1>
+      <Box sx={{ borderBottom: 1, borderColor: 'container' }}></Box><br />
+      <BarChart width={600} height={600} data={clientlog}>
+        <Bar dataKey="income" fill="grey"/>
+        <CartesianGrid stroke="#ccc" />
+        <XAxis dataKey="name" />
+        <YAxis />
+      </BarChart>
+      <Box sx={{ borderBottom: 1, borderColor: 'container' }}></Box><br />
+      <label>X = Company <br />Y = Income Per Week</label><br /><br />
+      <Box sx={{ borderBottom: 1, borderColor: 'container' }}></Box>
+      </>
+    );
+  }
+
+
+
