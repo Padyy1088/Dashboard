@@ -4,6 +4,82 @@ import Tab from '@mui/material/Tab';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import { useState } from 'react';
+import {
+  LineChart,
+  ResponsiveContainer,
+  Legend, Tooltip,
+  Line,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  ScatterChart,
+  Scatter,
+  BarChart,
+  Bar,
+} from 'recharts';
+
+const PumpActivity = [
+  {power: 5, output: 10},
+  {power: 2, output: 6},
+  {power: 10, output: 8},
+  {power: 3, output: 7},
+  {power: 6, output: 9},
+  {power: 8, output: 10},
+  {power: 1, output: 3},
+  {power: 7, output: 9},
+];
+
+const MiningData = [
+  {
+    name: 'Gold',
+    amount: 400,
+    buy: 100,
+    weight: 500,
+    sell: 150
+  },
+  {
+    name: 'Diamonds',
+    amount: 200,
+    buy: 500,
+    weight: 650,
+    sell: 50
+  },
+  {
+    name: 'Iron',
+    amount: 400,
+    buy: 40,
+    weight: 450,
+    sell: 200
+  },
+  {
+    name: 'Coal',
+    amount: 420,
+    buy: 20,
+    weight: 782,
+    sell: 300
+  },
+  {
+    name: 'Copper',
+    amount: 230,
+    buy: 90,
+    weight: 371,
+    sell: 140
+  },
+  {
+    name: 'Platinum',
+    amount: 390,
+    buy: 158,
+    weight: 742,
+    sell: 50
+  },
+  {
+    name: 'Silver',
+    amount: 430,
+    buy: 151,
+    weight: 610,
+    sell: 300
+  }
+]
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -49,7 +125,7 @@ export default function BasicTabs() {
     
     <Box sx={{ width: '100%' }}>
       <Box sx={{ borderBottom: 1, borderColor: 'container' }}>
-        <h1><u><p1>[P] </p1>Paddy's Dashboard <label>v:1.0.0</label></u></h1>
+        <h1><u><p1>[P] </p1>Paddy's Dashboard <label>v:1.1.4</label></u></h1>
       </Box>
       <Box sx={{ borderBottom: 1, borderColor: 'container' }}>
         <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
@@ -57,6 +133,9 @@ export default function BasicTabs() {
           <Tab label="To Do List" {...a11yProps(1)} />
           <Tab label="Emails" {...a11yProps(2)} />
           <Tab label="About" {...a11yProps(3)} />
+          <Tab label="Mining Graph" {...a11yProps(4)} />
+          <Tab label="Pump Activity"{...a11yProps(5)} />
+          <Tab label="Clients"{...a11yProps(6)} />
         </Tabs>
       </Box>
       <TabPanel value={value} index={0}>
@@ -82,6 +161,15 @@ export default function BasicTabs() {
         <About />
         <br />
       </Box >
+      </TabPanel>
+      <TabPanel value={value} index={4}>
+      <Graph />
+      </TabPanel>
+      <TabPanel value={value} index={5}>
+        <Pumps />
+      </TabPanel>
+      <TabPanel value={value} index={6}>
+        <Clients />
       </TabPanel>
     </Box>
   );
@@ -180,4 +268,83 @@ function About() {
       
     </div>
   )
+}
+
+
+function Graph() {
+  return (
+    <>
+    <Box sx={{ borderBottom: 1, borderColor: 'container' }}></Box>
+      <h1><u>Mining Graph Mock:</u></h1>
+      <Box sx={{ borderBottom: 1, borderColor: 'container' }}></Box><br />
+      <ResponsiveContainer width="100%" aspect={3}>
+        <LineChart data={MiningData} margin={{ right: 300}}>
+          <CartesianGrid />
+          <XAxis dataKey="name"
+            interval={"preserveStartEnd"} />
+            <YAxis></YAxis>
+            <Legend />
+            <Tooltip />
+            <Line dataKey="amount"
+              stroke="purple" activeDot={{ r: 8}} />
+            <Line dataKey="buy"
+              stroke="blue" activeDot={{ r: 8}} />
+            <Line dataKey="weight"
+              stroke="green" activeDot={{r:8}} />
+            <Line dataKey="sell"
+              stroke="red" activeDot={{r:8}} />
+        </LineChart>
+      </ResponsiveContainer><br />
+      <Box sx={{ borderBottom: 1, borderColor: 'container' }}></Box>
+      
+    </>
+  )
+}
+
+function Pumps() {
+  return (
+    <>
+    <Box sx={{ borderBottom: 1, borderColor: 'container' }}></Box>
+    <h1><u>Pump Data Mock:</u></h1>
+    <Box sx={{ borderBottom: 1, borderColor: 'container' }}></Box><br />
+    <ScatterChart width={400} height={400}>
+        <CartesianGrid />
+        <XAxis type="number" dataKey="power" />
+        <YAxis type="number" dataKey="output" />
+        <Scatter data={PumpActivity} fill="grey" />
+    </ScatterChart>
+    <Box sx={{ borderBottom: 1, borderColor: 'container' }}></Box><br />
+    <label>X = Power <br/ > Y = Output</label>
+    <br />
+    <br />
+    <Box sx={{ borderBottom: 1, borderColor: 'container' }}></Box>
+
+    </>
+  )
+}
+
+const clientlog = [
+  {name: 'Popular Miners', income: 1000},
+  {name: 'Diamond Grabbers', income: 1500},
+  {name: 'Gold Diggers', income: 1200},
+  {name: 'Coal Crusaiders', income: 800}
+];
+
+function Clients() {
+  return (
+    <>
+    <Box sx={{ borderBottom: 1, borderColor: 'container' }}></Box>
+    <h1><u>Client Data Mock:</u></h1>
+    <Box sx={{ borderBottom: 1, borderColor: 'container' }}></Box><br />
+    <BarChart width={600} height={600} data={clientlog}>
+      <Bar dataKey="income" fill="grey"/>
+      <CartesianGrid stroke="#ccc" />
+      <XAxis dataKey="name" />
+      <YAxis />
+    </BarChart>
+    <Box sx={{ borderBottom: 1, borderColor: 'container' }}></Box><br />
+    <label>X = Company <br />Y = Income Per Week</label><br /><br />
+    <Box sx={{ borderBottom: 1, borderColor: 'container' }}></Box>
+    </>
+  );
 }
