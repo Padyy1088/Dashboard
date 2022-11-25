@@ -1,0 +1,23 @@
+.Color {
+    box-sizing: border-box;
+    width: 100%;
+    display: flex;
+    justify-content: left;
+    align-items: baseline;
+    padding: 0em;
+    margin-bottom: 50em;
+    background-color: rgb(17, 17, 17);
+    color: #fff;
+}
+
+.Dark {
+    box-sizing: border-box;
+    width: 100%;
+    display: auto;
+    justify-content: left;
+    align-items: baseline;
+    padding: 1em;
+    margin-bottom: 0.5em;
+    background-color: rgb(42, 42, 42);
+    color: #fff;
+}
